@@ -37,6 +37,7 @@ else
 			openssl enc -aes-256-cbc -salt -in "$file" -out "$file"".enc" -k "$pass"
 		
 			#if there is an error while encrypting do not remove the oiginal file
+			#if the file is not present.
 			if [ $? -ne 0 ]; then 
 				echo "Error!"
 			else
@@ -45,4 +46,5 @@ else
 			fi
 		fi
 	done
+	#if no files are encrypted it is safe to delete the pass.txt.ssl file
 fi
