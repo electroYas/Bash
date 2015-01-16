@@ -10,7 +10,7 @@ if [ -f "pass.txt.ssl" ];then
 fi
 
 #get random password value
-echo "Generating a random number..."
+echo "Generating 64 charactor password..."
 pass=`openssl rand -base64 64`
 
 #save the password in a temp file
