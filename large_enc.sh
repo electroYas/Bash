@@ -1,21 +1,45 @@
 #!/bin/bash
+
+#check if files in the the folder are already encrypted. 
+#if pass.txt.ssl file present close the program
+
+if [ -f "pass.txt.ssl" ];then
+	echo "pass.txt.ssl file present."
+	echo "Do not remove this file otherwise files cannot be decrypted using this pass.txt.ssl"
+	exit 1
+fi
+
+#get random password value
 pass=`openssl rand -base64 64`
+
+#save the password in a file
 echo "$pass"> pass.txt
+
+#encrypt the password containing file
 openssl rsautl -encrypt -inkey /home/yas/PublicKey/public_key.pem -pubin -in "pass.txt" -out "pass.txt"".ssl"
+
+#if the public key is missing
 if [ $? -ne 0 ];then
 	rm "pass.txt"
 	echo "Public key missing"
 else
 	rm "pass.txt"
+	
+	#for all the selected files
 	for file in "$@";do
-	if [[ "$file" != *.sh ]];then
-		openssl enc -aes-256-cbc -salt -in "$file" -out "$file"".enc" -k "$pass"
-		if [ $? -ne 0 ]; then 
-			echo "Error"
-		else
-			echo "done."
-			rm "$file"
+		#avoiding encrypting the program files, password containing file and encrypted files. 
+		if [[ "$file" != *.sh ]] && [[ "$file" != *.ssl ]] && [[ "$file" != *.enc ]];then
+	
+			#encrypting
+			openssl enc -aes-256-cbc -salt -in "$file" -out "$file"".enc" -k "$pass"
+		
+			#if there is an error while encrypting do not remove the oiginal file
+			if [ $? -ne 0 ]; then 
+				echo "Error!"
+			else
+				echo "done."
+				rm "$file"
+			fi
 		fi
-	fi
 	done
 fi
