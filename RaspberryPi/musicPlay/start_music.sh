@@ -1,2 +1,2 @@
 #!/bin/bash
-play /home/yas/playlist5
+play ./playlist5
