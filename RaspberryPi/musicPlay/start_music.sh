@@ -1,2 +1,2 @@
 #!/bin/bash
-play ./playlist5
+play playlist5
