@@ -1,0 +1,22 @@
+volume=-3700
+for file in "$@"
+do
+	format=$(echo "$file" | sed 's/^.*\.//')
+	echo $format
+
+	if [ $format = "mp3" -o $format = "MP3" ]
+	then
+	
+	echo "Playing Audio file:"
+	echo "$file"
+	#omxplayer --vol $volume -o both "$file"
+	lxterminal --command="omxplayer --vol $volume -o both '$file'"
+	elif [ $format = "AVI" -o $format = "avi" -o $format = "mkv" -o $format = "mp4" -o $format = "flv" ]
+	then
+	echo "Playing Video file:"
+	echo "$file"
+	#omxplayer -b --align center --font-size 30 --italic-font "/usr/share/ghostscript/9.14/Resource/CIDFSubst/DroidSansFallback.ttf" --font "/usr/share/ghostscript/9.14/Resource/CIDFSubst/DroidSansFallback.ttf" --vol $volume -o both "$file"
+	lxterminal --command="omxplayer -b --align center --font-size 30 --italic-font '/usr/share/ghostscript/9.14/Resource/CIDFSubst/DroidSansFallback.ttf' --font '/usr/share/ghostscript/9.14/Resource/CIDFSubst/DroidSansFallback.ttf' --vol $volume -o both '$file'"
+	fi
+
+done
