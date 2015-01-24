@@ -18,7 +18,7 @@ echo "$pass"> pass.txt
 
 #encrypt the password containing file
 echo "Encrypting the password file..."
-openssl rsautl -encrypt -inkey /home/yas/PublicKey/public_key.pem -pubin -in "pass.txt" -out "pass.txt"".ssl"
+openssl rsautl -encrypt -inkey ./public_key.pem -pubin -in "pass.txt" -out "pass.txt"".ssl"
 
 #if the public key is missing
 if [ $? -ne 0 ];then
