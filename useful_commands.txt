@@ -1,0 +1,1 @@
+rsync -avhW --no-compress --progress source destination
