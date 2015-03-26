@@ -1,1 +1,28 @@
+#sycn files
 rsync -avhW --no-compress --progress source destination
+
+#Sound settings
+sudo alsa reload
+pulseaudio -k
+pulseaudio --start 
+
+
+#networking
+ip a
+iwconfig
+ip link set wlan0 up
+sudo iwlist scan
+ifup eth0
+
+
+https://github.com/sarxos/webcam-capture/tree/master/webcam-capture-examples
+
+#cpu scaling
+sudo nano /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 
+sudo nano /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor 
+
+#disable camera
+sudo modprobe -r uvcvideo
+
+#enable camera
+sudo modprobe uvcvideo
